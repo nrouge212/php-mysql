@@ -5,7 +5,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             $user['email'] === $_POST['email'] &&
             $user['password'] === $_POST['password']
         ) {
-            $loggedUser = [ 'email' => $user['email'] ];
+            // C'est ici la magie : on sauvegarde l'email dans la session !
+            $_SESSION['LOGGED_USER'] = $user['email'];
         } else {
             $errorMessage = sprintf('Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
                 $_POST['email'],
@@ -15,8 +16,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     }
 }
 ?>
-
-<?php if (!isset($loggedUser)): ?>
+<?php if (!isset($_SESSION['LOGGED_USER'])): ?>
     <form action="index.php" method="POST">
         <?php if (isset($errorMessage)): ?>
             <div class="alert alert-danger" role="alert">
@@ -36,6 +36,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     </form>
 <?php else: ?>
     <div class="alert alert-success" role="alert">
-        Bonjour <?php echo $loggedUser['email']; ?> et bienvenue sur le site !
+        Bonjour <?php echo $_SESSION['LOGGED_USER']; ?> et bienvenue sur le site !
     </div>
 <?php endif; ?>
