@@ -19,9 +19,18 @@ if (isset($_FILES['screenshot']) && $_FILES['screenshot']['error'] == 0) {
         $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
         
         if (in_array($extension, $allowedExtensions)) {
-            // On peut valider le fichier et le stocker définitivement
-            move_uploaded_file($_FILES['screenshot']['tmp_name'], 'uploads/' . basename($_FILES['screenshot']['name']));
-            // On pourrait afficher un message de succès ici si on le souhaite
+            
+            // 1. On liste les fichiers déjà présents dans le dossier pour faire un compteur
+            $fichiersExistants = glob('uploads/*');
+            $compteur = count($fichiersExistants) + 1;
+            
+            // 2. On génère le nouveau nom (ex: "1.jpg", "2.png")
+            $nouveauNom = $compteur . '.' . $extension;
+            
+            // 3. On sauvegarde le fichier avec ce nom propre et unique
+            move_uploaded_file($_FILES['screenshot']['tmp_name'], 'uploads/' . $nouveauNom);
+            
+            echo "<p>L'envoi a bien été effectué sous le nom : " . htmlspecialchars($nouveauNom) . "</p>";
         }
     }
 }
