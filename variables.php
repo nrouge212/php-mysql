@@ -19,26 +19,5 @@ $users = [
         'age' => 34,
         'password' => 'mickael123' 
     ],
-];
-
-$recipes = [
-    [
-        'title' => 'Cassoulet',
-        'recipe' => 'Etape 1 Flageolait',
-        'author' => 'mickael.andrieu@exemple.com',
-        'enabled' => true
-    ],
-    [
-        'title' => 'Couscous',
-        'recipe' => 'Etape 1 Semoule',
-        'author' => 'mickael.andrieu@exemple.com',
-        'enabled' => false
-    ],
-    [
-        'title' => 'Frites',
-        'recipe' => 'Etape 1 Pomme de Terre',
-        'author' => 'mickael.andrieu@exemple.com',
-        'enabled' => true
-    ],
-];
+]
 ?>

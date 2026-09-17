@@ -12,18 +12,25 @@
     <div class="container">
         <?php include_once('header.php'); ?>
         
-        <h1>Site de recettes</h1>
-        
         <?php
+        include_once('mysql.php');
         include_once('variables.php');
         include_once('functions.php');
         ?>
+        
         <?php include_once('login.php'); ?>
+        
+        <?php
+        $sqlQuery = 'SELECT * FROM recipes WHERE is_enabled = 1';
+        $recipesStatement = $db->prepare($sqlQuery);
+        $recipesStatement->execute();
+        $recipes = $recipesStatement->fetchAll();
+        ?>
         
         <h1>Site de recettes</h1>
         
         <?php if(isset($_SESSION['LOGGED_USER'])): ?>
-            <?php foreach (getRecipes($recipes) as $recipe): ?>
+            <?php foreach ($recipes as $recipe): ?>
                 <article>
                     <h3><?php echo $recipe['title']; ?></h3>
                     <div><?php echo $recipe['recipe']; ?> </div>
