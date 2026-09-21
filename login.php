@@ -5,7 +5,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             $user['email'] === $_POST['email'] &&
             $user['password'] === $_POST['password']
         ) {
-            // C'est ici la magie : on sauvegarde l'email dans la session !
             $_SESSION['LOGGED_USER'] = $user['email'];
         } else {
             $errorMessage = sprintf('Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',

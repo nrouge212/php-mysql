@@ -1,5 +1,4 @@
 <?php
-// On vérifie d'abord l'email et le message comme avant...
 if (
     (!isset($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
     || (!isset($_POST['message']) || empty($_POST['message']))
@@ -8,8 +7,6 @@ if (
     return;
 }
 
-// NOUVEAU : Traitement du fichier uploadé
-// Testons si le fichier a bien été envoyé et s'il n'y a pas d'erreur
 if (isset($_FILES['screenshot']) && $_FILES['screenshot']['error'] == 0) {
     // Testons si le fichier n'est pas trop gros
     if ($_FILES['screenshot']['size'] <= 1000000) {
@@ -20,14 +17,9 @@ if (isset($_FILES['screenshot']) && $_FILES['screenshot']['error'] == 0) {
         
         if (in_array($extension, $allowedExtensions)) {
             
-            // 1. On liste les fichiers déjà présents dans le dossier pour faire un compteur
             $fichiersExistants = glob('uploads/*');
             $compteur = count($fichiersExistants) + 1;
-            
-            // 2. On génère le nouveau nom (ex: "1.jpg", "2.png")
             $nouveauNom = $compteur . '.' . $extension;
-            
-            // 3. On sauvegarde le fichier avec ce nom propre et unique
             move_uploaded_file($_FILES['screenshot']['tmp_name'], 'uploads/' . $nouveauNom);
             
             echo "<p>L'envoi a bien été effectué sous le nom : " . htmlspecialchars($nouveauNom) . "</p>";
