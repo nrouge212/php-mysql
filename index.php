@@ -35,9 +35,10 @@
                     <h3><?php echo $recipe['title']; ?></h3>
                     <div><?php echo $recipe['recipe']; ?> </div>
                     <i><?php echo displayAuthor($recipe['author'], $users); ?></i>
-                    
                     <?php if(isset($_SESSION['LOGGED_USER']) && $recipe['author'] === $_SESSION['LOGGED_USER']): ?>
-                        <p><a href="update_recipe.php?id=<?php echo $recipe['recipe_id']; ?>">Éditer la recette</a></p>
+                        <p><a href="update_recipe.php?id=<?php echo $recipe['recipe_id']; ?>">Éditer la recette</a> | 
+                        <a href="delete_recipe.php?id=<?php echo $recipe['recipe_id']; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette recette ?');">Supprimer la recette</a>
+                        </p>
                     <?php endif; ?>
                 </article>
             <?php endforeach ?>
