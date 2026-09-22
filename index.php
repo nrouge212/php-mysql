@@ -35,6 +35,10 @@
                     <h3><?php echo $recipe['title']; ?></h3>
                     <div><?php echo $recipe['recipe']; ?> </div>
                     <i><?php echo displayAuthor($recipe['author'], $users); ?></i>
+                    
+                    <?php if(isset($_SESSION['LOGGED_USER']) && $recipe['author'] === $_SESSION['LOGGED_USER']): ?>
+                        <p><a href="update_recipe.php?id=<?php echo $recipe['recipe_id']; ?>">Éditer la recette</a></p>
+                    <?php endif; ?>
                 </article>
             <?php endforeach ?>
         <?php endif; ?>
